@@ -58,8 +58,19 @@ class ItemValidationTest(FunctionalTest):
         # She starts typing in the input box to clear the error
         self.get_item_input_box().send_keys('a')
 
-        # She is pleased to see that the error message dissapears
+        # She is pleased to see that the error message dissapears when
+        # entering she starts to type a new list item
         error = self.get_error_element()
         self.assertFalse(error.is_displayed())
 
+        # Edith again causes a validation error
+        self.browser.get(self.server_url)
+        self.get_item_input_box().send_keys('\n')
 
+        # This time she clicks into the input box to clear the error
+        self.get_item_input_box().click()
+
+        # She is happy to see that the error message dissapears when
+        # she clicks into the input field
+        error = self.get_error_element()
+        self.assertFalse(error.is_displayed())
